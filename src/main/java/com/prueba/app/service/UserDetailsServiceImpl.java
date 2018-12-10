@@ -27,7 +27,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = service.fingById(username);
-        System.out.println("\n\n\n\n\n\n\n" + logger.getName() + "\n\n\n\n\n\n\n\n");
         List<GrantedAuthority>authority = new ArrayList<GrantedAuthority>();
         authority.add(new SimpleGrantedAuthority(user.getType().getName()));
         return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), user.isActive(), true, true, true, authority);

@@ -37,4 +37,16 @@ public class UserService implements IUserService {
         return repository.existsById(user.getDni()) ? repository.save(user) : null;
     }
 
+    @Override
+    public boolean findUserByDniAndPassword(String dni, String password) {
+        if(repository.existsById(dni)) {
+            User user = repository.findUserByDniAndPassword(dni, password);
+            if(user != null)
+                return true;
+            else
+                return false;
+        }
+        return false;
+    }
+
 }

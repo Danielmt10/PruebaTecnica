@@ -9,4 +9,5 @@ public interface IUserService {
     User fingById(String id);
     User addUser(User user);
     User updateUser(User user);
+    boolean findUserByDniAndPassword(String dni, String password);
 }

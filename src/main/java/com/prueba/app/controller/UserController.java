@@ -5,10 +5,7 @@ import com.prueba.app.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,7 +27,16 @@ public class UserController {
         return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
 
-    public ResponseEntity<User> addUser(@RequestBody User user){
-        return null;
+    @GetMapping("log/{dni}/{pass}")
+    public ResponseEntity<Boolean> loggin(@PathVariable("dni") String dni,@PathVariable("pass") String pass){
+        boolean isLogged = service.findUserByDniAndPassword(dni, pass);
+        return new ResponseEntity<Boolean>(isLogged, HttpStatus.OK);
     }
+
+    @PostMapping
+    public ResponseEntity<User> addUser(@RequestBody User user){
+        User newUser = service.addUser(user);
+        return new ResponseEntity<User>(user, HttpStatus.CREATED);
+    }
+
 }
